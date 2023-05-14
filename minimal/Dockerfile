@@ -13,8 +13,8 @@ RUN apt-get update && apt-get install -y \
 
 RUN groupadd --gid 1000 octoprint \
   && useradd --uid 1000 --gid octoprint -G dialout --shell /bin/bash -m octoprint \
-  && mkdir -p /octoprint/octoprint /octoprint/plugins \
-  && chown -R octoprint:octoprint /octoprint
+  && mkdir -p /data/octoprint /data/plugins \
+  && chown -R octoprint:octoprint /data
 
 COPY docker-entrypoint.sh /usr/local/bin
 
@@ -22,7 +22,7 @@ USER octoprint
 
 WORKDIR /home/octoprint
 
-ENV PYTHONUSERBASE /octoprint/plugins
+ENV PYTHONUSERBASE /data/plugins
 ENV PIP_USER true
 ENV PATH "${PYTHONUSERBASE}/bin:${PATH}"
 
@@ -33,11 +33,11 @@ RUN	mkdir tmp && curl -fsSLO --compressed --retry 3 --retry-delay 10 \
   && pip install . \
   && rm -rf /home/octoprint/tmp
 
-WORKDIR /octoprint
-COPY config.yaml /octoprint/octoprint
+WORKDIR /data
+COPY configOcto.yaml /data/octoprint/config.yaml
 
-VOLUME /octoprint
+VOLUME /data
 EXPOSE 5000
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["octoprint", "--basedir", "/octoprint/octoprint", "serve"]
+CMD ["octoprint", "--basedir", "/data/octoprint", "serve"]

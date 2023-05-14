@@ -2,7 +2,7 @@
 set -e
 
 if [ "${1#-}" != "${1}" ] || [ -z "$(command -v "${1}")" ]; then
-  set -- octoprint --basedir /octoprint/octoprint "$@"
+  set -- octoprint --basedir /data/octoprint "$@"
 fi
 
 exec "$@"

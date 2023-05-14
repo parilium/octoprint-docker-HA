@@ -60,7 +60,7 @@ RUN	curl -fsSLO --compressed --retry 3 --retry-delay 10 \
 
 WORKDIR /opt/octoprint
 RUN pip install .
-RUN mkdir -p /octoprint/octoprint /octoprint/plugins
+RUN mkdir -p /data/octoprint /data/plugins
 
 # Install mjpg-streamer
 RUN curl -fsSLO --compressed --retry 3 --retry-delay 10 \
@@ -78,14 +78,14 @@ COPY root /
 ENV CAMERA_DEV /dev/video0
 ENV MJPG_STREAMER_INPUT -n -r 640x480
 ENV PIP_USER true
-ENV PYTHONUSERBASE /octoprint/plugins
+ENV PYTHONUSERBASE /data/plugins
 ENV PATH "${PYTHONUSERBASE}/bin:${PATH}"
 # set WORKDIR 
-WORKDIR /octoprint
+WORKDIR /data
 
 # port to access haproxy frontend
 EXPOSE 80
 
-VOLUME /octoprint
+VOLUME /data
 
 ENTRYPOINT ["/init"]

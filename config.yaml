@@ -9,10 +9,10 @@ arch:
   - aarch64
 webui: http://[HOST]:[PORT:5000]
 ports:
-  5000/tcp: 5000
+  80/tcp: 5000
 ports_description:
-  5000/tcp: Web-based interface
-#devices:
+  80/tcp: Web-based interface
+devices:
 # - "/dev/i2c-0"
 # - "/dev/i2c-1"
 # - "/dev/mem"
@@ -35,7 +35,7 @@ map:
   # mode: normal
 # schema:
   # trusted_proxies: "str?"
-  #camera_url: "url?"
+  # camera_url: "url?"
   # mode: "list(normal|recovery|reverse_proxy_test|camera)?"
 # image: ghcr.io/fredrikbaberg/ha-addon-3dprinter-octoprint-{arch}
 # codenotary:
@@ -45,5 +45,5 @@ tmpfs: true
 panel_icon: mdi:printer-3d
 panel_title: OctoPrint HA
 # stage: stable
-init: true
+init: false
 realtime: true
